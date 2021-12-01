@@ -9,51 +9,22 @@ const ResultsVerify=({dispatch,firstName,lastName,
   city,state,zipCode,addressLine,phoneNumber,email,feet,inches,preferredTitle, 
   requiredServices, monthlyBudget})=> {
   const google = window.google;
-  //const[googlemapsrc,setGooglemapsrc]=
-  //React.useState("https://www.google.com/maps/embed/v1/place?key=AIzaSyAeJ-EPgN1ctwzOBO6-jyseWKdl_C-wqxA&q="+
-  //city+""+addressLine+""+state+""+zipCode);
-
+ 
   const[googlemapsrc,setGooglemapsrc]=
   React.useState("https://www.google.com/maps/embed/v1/place?key=AIzaSyAeJ-EPgN1ctwzOBO6-jyseWKdl_C-wqxA&q="+
   city+""+addressLine+""+state+""+zipCode);
-
-  // setGooglemapsrc("https://www.google.com/maps/embed/v1/place?key=AIzaSyAeJ-EPgN1ctwzOBO6-jyseWKdl_C-wqxA&q="+city+" "+addressLine+" "+state+" "+zipCode);
-   
-
-   
+    
    return(
 <div class="container-fluid bg-light">
+<h4  style={{ "text-align" :"center"}}> Results verification page Srinithi Ramachandran </h4>
+     <br/>  
 
-
-{/* <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{
-         lat: -1.2884,
-         lng: 36.8233
-        }}
-      /> 
-       <div >
-            <div id="iframe-container" class="widthAndHeightOneHundredPercent">
-            {/* <iframe class="widthAndHeightOneHundredPercent removeBorder" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAeJ-EPgN1ctwzOBO6-jyseWKdl_C-wqxA&q={{property.city}} {{property.streetAddress}} {{property.state}} {{property.zipcode}}"
-                    allowfullscreen>
-                </iframe> 
-           <br/>
-           <br/>
-
-            </div>
-        </div>
-     </form></div>
-  
-  </div>
-</div></div></div> */}
 
 <div class="card " >
 <div class="card-header bg-primary waves-light  text-center">
 <div class="card-header waves-light active waves-effect waves-light text-center"> 
 <h4 class="text-white">                       
-Thanks for taking the survey!! Here is your  Survey  Summary    </h4>
+Thanks for taking the survey! Here is the summary of your survey!   </h4>
 </div>
  </div>
  <div class="col-md-8 mx-auto">
@@ -66,9 +37,6 @@ Thanks for taking the survey!! Here is your  Survey  Summary    </h4>
       {/* <th scope="row">1</th> */}
       <td> Name</td>
       <td>{firstName} {lastName}</td>
-
-      {/* <td>Otto</td>
-      <td>@mdo</td> */}
     </tr>
     <tr>
       <td> Preferred Title </td>
@@ -155,20 +123,10 @@ const mapStateToProps = (state) => {
       preferredTitle:state.userReducer.preferredTitle,
       requiredServices:state.userReducer.requiredServices,
       monthlyBudget:state.userReducer.monthlyBudget
-      //phoneNumber:state.userReducer.phoneNumber
   
     };
   };
-  // export default GoogleApiWrapper(
-  //   (props) => ({
-  //     apiKey: props.apiKey
-  //   }
-  // ))(MapContainer)
-  // const WrappedContainer = GoogleApiWrapper({
-  //   (props) => ({
-  //         apiKey: props.apiKey
-  //          })(ResultsVerify);
-  //   export default   connect(mapStateToProps)(ResultsVerify);
+ 
 
 
   const WrappedContainer = GoogleApiWrapper({
