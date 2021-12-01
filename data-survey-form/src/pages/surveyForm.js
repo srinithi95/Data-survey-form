@@ -20,31 +20,27 @@ import {setAddressLine,setCity,setEducationLevel,setEmail,setFeet,setLastName,
     const [captcha ,setCaptcha]=React.useState(false);
     const[captchaMessage,setCaptchaMessage]=React.useState(null);
     const[errorMessage2,setErrorMessage2]=React.useState(null);
+    const[emailCheck, setEmailCheck]= React.useState(false)
 
     const history = useHistory();
     
     const handleSubmit = () => {
-
     
       console.log(birthDate1)
       if(firstName=="" || lastName=="" || phoneNumber=="" || 
       addressLine=="" || city=="" || zipCode=="" ){
        setErrorMessage2("Please enter all mandatory fields");
-        console.log("here1")
+       
       }
       else if(email!=confirmEmail){
-       setErrorMessage2("Email ids dont match. Please make sure two emails are identical"); 
+        setErrorMessage2(null);
+        setErrorMessage("Email ids dont match. Please make sure two emails are identical");
+      
       }
-
-      // else if(!phoneNumber.match('^\d{7}$')){
-      //   setErrorMessage2("Phone Number must contain seven positive digits ");
-
-      // }
       else{
         setErrorMessage(null);
         setValidatePage(true);
-      }
-      
+      } 
     }
     
     if (validatePage) {
@@ -71,16 +67,16 @@ import {setAddressLine,setCity,setEducationLevel,setEmail,setFeet,setLastName,
 <div class="row" style={{"float":"center"}}>
 <div class="col-md-6 mb-2">
 <label for="lastName">Last name <span style={{ "color": "red" }}>*</span></label>
-<input type="lastName" class="form-control" id="inputLastName" value={lastName}
-onChange={(event) => dispatch(setLastName(event.target.value))} pattern = "[A-Za-z\s]+" placeholder="Last name"  required></input>
+<input type="lastName"  maxlength="40"  class="form-control" id="inputLastName" value={lastName}
+onChange={(event) => dispatch(setLastName(event.target.value))} pattern = "[A-Za-z\s]+"  required></input>
 <span class="form-text small text-muted">
 Name must contain only letters.
 </span>
 </div>
 <div class="col-md-6 mb-2">
 <label for="firstName">First name<span style={{ "color": "red" }}>*</span></label>
-<input type="inputfirstName" class="form-control" id="inputFirstName" 
-onChange={(event) => dispatch(setFirstName(event.target.value))} pattern = "[A-Za-z\s]+" placeholder="First Name"  required></input>
+<input type="inputfirstName" maxlength="40"  class="form-control" id="inputFirstName" 
+onChange={(event) => dispatch(setFirstName(event.target.value))} pattern = "[A-Za-z\s]+"  required></input>
 
 <div class="invalid-feedback">
 Valid first name is .
@@ -136,23 +132,19 @@ onChange={event=> dispatch(setInches(event.target.value))} id="inputInches"></in
 </div>
 </div>
 <div class="mb-3">
+
 <label for="phoneNumber">Phone number <span style={{ "color": "red" }}>*</span></label>
 <div class="input-group">
 <div class="input-group-prepend">
-<span class="input-group-text" id="basic-addon2"><i class="fa fa-phone fa-flip-horizontal" 
-aria-hidden="true"></i></span>
+<span class="input-group-text" id="basic-addon2"><i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i></span>
 </div>
-<input type="number" name="Phone" pattern = ".{8,}"
-id="inputPhone" class="form-control" onChange={(event) => dispatch(setPhoneNumber(event.target.value))} 
-placeholder="Phone number" required></input>
+<input type="text" name="Phone" maxlength="10"  id="inputPhone" class="form-control" onChange={(event) => dispatch(setPhoneNumber(event.target.value))} pattern = "\d{10}"  required></input>
 
 </div>
 <span class="form-text small text-muted">
-
-</span>
+Phone Number must contain 10 positive digits
+</span> 
 </div>
-
-
 <div class="mb-3">
 <label for="address">Address <span style={{ "color": "red" }}>*</span></label>
 <div class="input-group">
@@ -160,14 +152,16 @@ placeholder="Phone number" required></input>
 <div class="input-group-prepend">
 <span class="input-group-text" id="basic-addon2"><i class="fa fa-address-card" aria-hidden="true"></i></span>
 </div>
-<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" maxlength="40"  onChange={(event) => dispatch(setAddressLine(event.target.value))} pattern="[0-9]+[A-Za-z\s]+[A-Za-z\s]" required></input>
+<input type="text" class="form-control" id="inputAddress"  maxlength="40"  
+onChange={(event) => dispatch(setAddressLine(event.target.value))} pattern="^[a-zA-Z0-9 ]+$"  required></input>
 </div>
 </div>
 
 <div class="row">
 <div class="col-md-4 mb-3">
 <label for="city">City <span style={{ "color": "red" }}>*</span></label>
-<input type="text" class="form-control" onChange={(event) => dispatch(setCity(event.target.value))} id="inputCity" placeholder="city" required></input>
+<input type="text" class="form-control" onChange={(event) => dispatch(setCity(event.target.value))} 
+id="inputCity"  required></input>
 <div class="valid-feedback">
 Looks good!
 </div>
@@ -240,7 +234,8 @@ Please provide a valid state.
 </div>
 <div class="col-md-4 mb-3">
 <label for="zip">Zip Code <span style={{ "color": "red" }}>*</span></label>
-<input type="text" class="form-control" onChange={event=> dispatch(setZipCode(event.target.value))} id="zip" placeholder="Zip Code"  required></input>
+<input type="text" class="form-control" maxlength="5"
+onChange={event=> dispatch(setZipCode(event.target.value))} pattern = "\d{5}" id="zip" required></input>
 <span class="form-text small text-muted">
 Zip must contain five  digits
 </span>
@@ -255,7 +250,7 @@ Zip code .
 <label for="Required services">Required Services </label>
 <DropdownMultiselect
 type="Required services"
-        options={["E-mail ", "Phone ", "Facebook ","Tweeter ", "Surface mail ",
+        options={["E-mail ", "Phone ", "Facebook ","Twitter ", "Surface mail ",
           "Personal visit"]}
         name="required-services" 
         placeholder="Please select all the required services"
@@ -286,7 +281,7 @@ class="form-control"
 <div class="input-group-prepend">
 <span class="input-group-text" id="basic-addon2"><i class="fa fa-envelope" aria-hidden="true"></i></span>
 </div>
-<input type="text" name="email" id="inputPhone" class="form-control" onChange={(event) => dispatch(setEmail(event.target.value))} placeholder="Email Address" required></input>
+<input type="email" name="email" id="inputPhone" class="form-control" onChange={(event) => dispatch(setEmail(event.target.value))} required></input>
 
 </div>
 </div>
@@ -298,12 +293,13 @@ class="form-control"
 <div class="input-group-prepend">
 <span class="input-group-text" id="basic-addon2"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
 </div>
-<input type="text" name="email" id="inputConfirmEmail" class="form-control" onChange={(event) => (setConfirmEmail(event.target.value))} placeholder="Confirm Email Address" required></input>
+<input type="email" name="email" id="inputConfirmEmail" class="form-control" onChange={(event) => (setConfirmEmail(event.target.value))} required></input>
 
 </div>
-<span class="form-text small text-muted">
+{ !errorMessage && (<span class="form-text small text-muted">
 Make sure two emails are identical
-</span> 
+</span> )}
+<span class="text-danger"> {errorMessage}</span>
 
 
 </div>
@@ -319,10 +315,10 @@ I Agree to <span style={{ "color": "blue" }}><u>Terms & Conditions</u></span><sp
 
 <div className="form-group">
 <ReCaptcha
-sitekey="6LeQYmwdAAAAAL0cGCnXRp4AFDFeP7O3HJJKyau1"
+sitekey="6LeQYmwdAAAAAL0cGCnXRp4AFDFeP7O3HJJKyau1" required
 />
 </div>
-
+{emailCheck && <div>Please enter proper email</div>}
 <span class="text-danger" value={errorMessage2}> {errorMessage2}</span>
 <div class="text-center">
   <input type= "submit" class="btn btn-primary btn-lg btn-block" onClick={handleSubmit} value="Submit" ></input>     
